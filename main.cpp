@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 #include "parser.tab.h" 
 
+extern FILE *yyin; 
+
 using namespace std;
 
 int main(int argc, char *argv[]){
