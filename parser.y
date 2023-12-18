@@ -32,6 +32,8 @@ void set_symbol(char* s, int value);
 
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
+%nonassoc EQUALS_TO NOT_EQUALS_TO
+%right EQUAL
 
 %start program
 
