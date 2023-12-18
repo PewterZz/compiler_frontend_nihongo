@@ -29,7 +29,7 @@ void yyerror(const char* s);
 
 %%
 
-program: statement
+program:
        | program statement
        ;
 
