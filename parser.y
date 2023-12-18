@@ -34,8 +34,8 @@ program:
        ;
 
 statement: IF LPAREN expression RPAREN statement ELSE statement
-         | YIELD expression
-         | IDENTIFIER EQUAL expression
+         | YIELD expression ';'
+         | IDENTIFIER EQUAL expression ';'
          | expression ';'
          ;
 
@@ -53,4 +53,3 @@ expression: expression PLUS expression
 void yyerror(const char* s) {
     fprintf(stderr, "Parser error: %s\n", s);
 }
-
