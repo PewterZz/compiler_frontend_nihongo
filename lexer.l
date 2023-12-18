@@ -1,9 +1,10 @@
 %{
+#include <stdio.h>
+#include <stdlib.h>
 #include "parser.tab.h"
 %}
 
-DIGIT [0-9]
-ID [a-zA-Z][a-zA-Z0-9_]*
+%option noyywrap
 
 %%
 "イフ"        { return IF; }
@@ -34,11 +35,9 @@ ID [a-zA-Z][a-zA-Z0-9_]*
 "トゥルー"    { return TRUE; }
 "フォルス"    { return FALSE; }
 "ナン"        { return NONE; }
-[ \t\n]      ; // Ignore whitespace
-.           { fprintf(stderr, "Unexpected character: %s\n", yytext); }
+[0-9]+        { yylval.num = atoi(yytext); return NUMBER; }
+[a-zA-Z_][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return IDENTIFIER; }
+[ \t\n]       ; // Ignore whitespace
+.             { fprintf(stderr, "Unexpected character: %s\n", yytext); }
 
 %%
-
-int yywrap() {
-    return 1;
-}
