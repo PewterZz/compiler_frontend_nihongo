@@ -68,7 +68,6 @@ expression: expression PLUS expression
              {
                  $$ = $1;      
              }
-          | IDENTIFIER
           ;
 
 %%
