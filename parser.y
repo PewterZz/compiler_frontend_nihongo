@@ -22,6 +22,7 @@ void yyerror(const char* s);
 
 %token IF ELSE YIELD EQUAL PLUS MINUS MULTIPLY DIVIDE LPAREN RPAREN ELIF FOR WHILE DEF CLASS TRY EXCEPT FINALLY RETURN RAISE FROM IMPORT AS PASS BREAK CONTINUE GLOBAL NONLOCAL ASSERT DEL ASYNC AWAIT TRUE FALSE NONE
 
+
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
 
@@ -37,7 +38,6 @@ statement: IF LPAREN expression RPAREN statement ELSE statement
          | YIELD expression ';'
          | IDENTIFIER EQUAL expression ';'
          | expression ';'
-         | IDENTIFIER EQUAL NUMBER ';'   /* Variable assignment with a number */
          ;
 
 expression: expression PLUS expression
@@ -47,7 +47,10 @@ expression: expression PLUS expression
           | LPAREN expression RPAREN
           | NUMBER
           | IDENTIFIER
-          | IDENTIFIER PLUS NUMBER       /* Variable usage in an expression */
           ;
 
 %%
+
+void yyerror(const char* s) {
+    fprintf(stderr, "Parser error: %s\n", s);
+}
