@@ -46,13 +46,14 @@ program:
 statement: IF LPAREN expression RPAREN statement ELSE statement
          | YIELD expression SEMICOLON
          | IDENTIFIER EQUAL expression SEMICOLON
+         | assignment_statement
          | expression SEMICOLON 
           {
                  printf("%d\n", $1);
              }
          ;
 
-assignment_expression: IDENTIFIER EQUAL expression
+assignment_statement: IDENTIFIER EQUAL expression SEMICOLON
         {
             set_symbol($1, $3);
             $$ = $3;
@@ -91,7 +92,6 @@ expression: expression PLUS expression
              {
                  $$ = $1;      
              }
-          | assignment_expression
           | IDENTIFIER {
              $$ = get_symbol($1);
           }
