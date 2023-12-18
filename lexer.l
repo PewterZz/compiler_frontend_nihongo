@@ -1,28 +1,44 @@
-
-
 %{
 #include "parser.tab.h"
 %}
-
 
 DIGIT [0-9]
 ID [a-zA-Z][a-zA-Z0-9_]*
 
 %%
-"イフ"      { return IF; }
-"else"     { return ELSE; }
-"ヤールド"   { return YIELD; }
-"="        { return EQUAL; }
-"+"        { return PLUS; }
-"-"        { return MINUS; }
-"*"        { return MULTIPLY; }
-"/"        { return DIVIDE; }
-"("        { return LPAREN; }
-")"        { return RPAREN; }
-{DIGIT}+   { yylval.num = atoi(yytext); return NUMBER; }
-{ID}       { yylval.str = strdup(yytext); return IDENTIFIER; }
-[ \t\n]    ; // Ignore whitespace
-.         { fprintf(stderr, "Unexpected character: %s\n", yytext); }
+"イフ"        { return IF; }
+"エルイフ"    { return ELIF; }
+"エルス"      { return ELSE; }
+"フォー"      { return FOR; }
+"ホワイル"    { return WHILE; }
+"デフ"        { return DEF; }
+"クラス"      { return CLASS; }
+"トライ"      { return TRY; }
+"エクセプト"  { return EXCEPT; }
+"ファイナリー" { return FINALLY; }
+"リターン"    { return RETURN; }
+"レイズ"      { return RAISE; }
+"フロム"      { return FROM; }
+"インポート"  { return IMPORT; }
+"アズ"        { return AS; }
+"パス"        { return PASS; }
+"ブレーク"    { return BREAK; }
+"コンティニュー" { return CONTINUE; }
+"グローバル"  { return GLOBAL; }
+"ノンローカル" { return NONLOCAL; }
+"アサート"    { return ASSERT; }
+"デル"        { return DEL; }
+"ヤールド"    { return YIELD; }
+"アシンク"    { return ASYNC; }
+"アウェイト"  { return AWAIT; }
+"トゥルー"    { return TRUE; }
+"フォルス"    { return FALSE; }
+"ナン"        { return NONE; }
+[ \t\n]      ; // Ignore whitespace
+.           { fprintf(stderr, "Unexpected character: %s\n", yytext); }
 
 %%
 
+int yywrap() {
+    return 1;
+}
