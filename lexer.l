@@ -37,6 +37,9 @@
 "ナン"        { return NONE; }
 [0-9]+        { yylval.num = atoi(yytext); return NUMBER; }
 [a-zA-Z_][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return IDENTIFIER; }
+"="          { return EQUAL; }
+"=="         { return EQUALS_TO; }
+"!="        { return NOT_EQUALS_TO; }
 "+"         { return PLUS; }   // Addition operator
 "-"         { return MINUS; }  // Subtraction operator
 "*"         { return MULTIPLY; } // Multiplication operator
