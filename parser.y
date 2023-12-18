@@ -43,20 +43,29 @@ program:
        | program statement
        ;
 
-statement: IF LPAREN expression RPAREN statement ELSE statement
+statement: if_statement
          | YIELD expression SEMICOLON
          | IDENTIFIER EQUAL expression SEMICOLON
          | assignment_statement
-         | expression SEMICOLON 
-          {
-                 printf("%d\n", $1);
-             }
+         | expression_statement
          ;
 
 assignment_statement: IDENTIFIER EQUAL expression SEMICOLON
         {
             set_symbol($1, $3);
             $$ = $3;
+        }
+        ;
+
+if_statement: IF LPAREN expression RPAREN statement ELSE statement
+        {
+            // If-else specific action
+        }
+        ;
+
+expression_statement: expression SEMICOLON
+        {
+            printf("%d\n", $1);
         }
         ;
 
