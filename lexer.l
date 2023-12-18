@@ -43,6 +43,8 @@
 "*"         { return MULTIPLY; } // Multiplication operator
 "/"           { return DIVIDE; } // Division operator
 ";"           { return SEMICOLON; } // Separator operator
+"("           { return LPAREN; }
+")"           { return RPAREN; }
 [ \t\n]       ; // Ignore whitespace
 .             { fprintf(stderr, "Unexpected character: %s\n", yytext); }
 
