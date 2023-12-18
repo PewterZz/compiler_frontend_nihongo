@@ -25,15 +25,13 @@ void set_symbol(char* s, int value);
 %token <num> NUMBER
 %token <str> IDENTIFIER
 %type <num> expression
-%type <num> assignment_statement
+%type <num> assignment_expression
 
 %token SEMICOLON IF ELSE YIELD EQUAL PLUS MINUS MULTIPLY DIVIDE LPAREN RPAREN ELIF FOR WHILE DEF CLASS TRY EXCEPT FINALLY RETURN RAISE FROM IMPORT AS PASS BREAK CONTINUE GLOBAL NONLOCAL ASSERT DEL ASYNC AWAIT TRUE FALSE NONE
 %token EQUALS_TO NOT_EQUALS_TO
 
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
-%nonassoc EQUALS_TO NOT_EQUALS_TO
-%right EQUAL
 
 %start program
 
@@ -43,29 +41,19 @@ program:
        | program statement
        ;
 
-statement: if_statement
+statement: IF LPAREN expression RPAREN statement ELSE statement
          | YIELD expression SEMICOLON
          | IDENTIFIER EQUAL expression SEMICOLON
-         | assignment_statement
-         | expression_statement
+         | expression SEMICOLON 
+          {
+                 printf("%d\n", $1);
+             }
          ;
 
-assignment_statement: IDENTIFIER EQUAL expression SEMICOLON
+assignment_expression: IDENTIFIER EQUAL expression
         {
             set_symbol($1, $3);
             $$ = $3;
-        }
-        ;
-
-if_statement: IF LPAREN expression RPAREN statement ELSE statement
-        {
-            // If-else specific action
-        }
-        ;
-
-expression_statement: expression SEMICOLON
-        {
-            printf("%d\n", $1);
         }
         ;
 
@@ -89,21 +77,12 @@ expression: expression PLUS expression
             {
                  $$ = $2;     
              }
-          | expression EQUALS_TO expression
-            {
-                $$ = $1 == $3;
-            }
-          | expression NOT_EQUALS_TO expression
-            {
-                $$ = $1 != $3;
-            }
           | NUMBER
              {
                  $$ = $1;      
              }
-          | IDENTIFIER {
-             $$ = get_symbol($1);
-          }
+          | assignment_expression
+          | IDENTIFIER
           ;
 
 %%
