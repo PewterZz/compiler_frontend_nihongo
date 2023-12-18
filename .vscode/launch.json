@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "f:/Projects/Cx-Compiler",
-      "program": "f:/Projects/Cx-Compiler/build/Debug/outDebug",
+      "cwd": "d:/VScodeProjects/compiler_frontend_nihongo",
+      "program": "d:/VScodeProjects/compiler_frontend_nihongo/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
