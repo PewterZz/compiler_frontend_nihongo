@@ -36,6 +36,7 @@ program: statement
 statement: IF LPAREN expression RPAREN statement ELSE statement
          | YIELD expression
          | IDENTIFIER EQUAL expression
+         | expression ';'
          ;
 
 expression: expression PLUS expression
