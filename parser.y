@@ -37,15 +37,36 @@ program:
 statement: IF LPAREN expression RPAREN statement ELSE statement
          | YIELD expression SEMICOLON
          | IDENTIFIER EQUAL expression SEMICOLON
-         | expression SEMICOLON
+         | expression SEMICOLON 
+          {
+                 printf("%d\n", $1);
+             }
          ;
 
 expression: expression PLUS expression
+            {
+                 $$ = $1 + $3;
+             }
           | expression MINUS expression
+             {
+                 $$ = $1 - $3; 
+             }
           | expression MULTIPLY expression
+             {
+                 $$ = $1 * $3; 
+             }
           | expression DIVIDE expression
+            {
+                 $$ = $1 / $3; 
+             }
           | LPAREN expression RPAREN
+            {
+                 $$ = $2;     
+             }
           | NUMBER
+             {
+                 $$ = $1;      
+             }
           | IDENTIFIER
           ;
 
