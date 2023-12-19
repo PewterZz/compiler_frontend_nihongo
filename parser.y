@@ -37,10 +37,7 @@ program:
 
 statement: IF LPAREN expression RPAREN statement ELSE statement
          | YIELD expression SEMICOLON
-         | IDENTIFIER SEMICOLON
-         {
-            printf("%s\n", $1);
-         }
+         | IDENTIFIER EQUAL expression SEMICOLON
          | expression SEMICOLON 
           {
                  printf("%d\n", $1);
