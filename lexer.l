@@ -36,7 +36,7 @@
 "フォルス"    { return FALSE; }
 "ナン"        { return NONE; }
 [0-9]+        { yylval.num = atoi(yytext); return NUMBER; }
-[a-zA-Z_][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return IDENTIFIER; }
+[a-zA-Z_\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF][a-zA-Z0-9_\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]* { yylval.str = strdup(yytext); return IDENTIFIER; }
 "="          { return EQUAL; }
 "+"         { return PLUS; }   // Addition operator
 "-"         { return MINUS; }  // Subtraction operator
