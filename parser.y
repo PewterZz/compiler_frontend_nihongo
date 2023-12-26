@@ -21,11 +21,14 @@ void yyerror(const char* s);
 %token <str> IDENTIFIER
 %type <num> expression
 
-%token SEMICOLON IF ELSE YIELD EQUAL PLUS MINUS MULTIPLY DIVIDE LPAREN RPAREN ELIF FOR WHILE DEF CLASS TRY EXCEPT FINALLY RETURN RAISE FROM IMPORT AS PASS BREAK CONTINUE GLOBAL NONLOCAL ASSERT DEL ASYNC AWAIT TRUE FALSE NONE
+%token SEMICOLON EQUALITY IF ELSE YIELD PLUS MINUS MULTIPLY DIVIDE LPAREN RPAREN ELIF FOR WHILE DEF CLASS TRY EXCEPT FINALLY RETURN RAISE FROM IMPORT AS PASS BREAK CONTINUE GLOBAL NONLOCAL ASSERT DEL ASYNC AWAIT TRUE FALSE NONE
 
-
+%left EQUALITY
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
+
+%nonassoc LOWER_THAN_ELSE
+%nonassoc ELSE
 
 %start program
 
@@ -36,8 +39,16 @@ program:
        ;
 
 statement: IF LPAREN expression RPAREN statement ELSE statement
+            {
+                if ($3) {
+                    // Execute the 'if' statement block
+                    printf("If block executed.\n");
+                } else {
+                    // Execute the 'else' statement block
+                    printf("Else block executed.\n");
+                }
+            }
          | YIELD expression SEMICOLON
-         | IDENTIFIER EQUAL expression SEMICOLON
          | expression SEMICOLON 
           {
                  printf("%d\n", $1);
@@ -59,6 +70,10 @@ expression: expression PLUS expression
           | expression DIVIDE expression
             {
                  $$ = $1 / $3; 
+             }
+          | expression EQUALITY expression
+             {
+                 $$ = ($1 == $3); 
              }
           | LPAREN expression RPAREN
             {
