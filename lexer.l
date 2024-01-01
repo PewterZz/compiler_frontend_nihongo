@@ -1,7 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "parser.tab.h"
+#include "parser.tab.c"
 %}
 
 %option noyywrap
@@ -35,13 +35,13 @@
 "トゥルー"    { return TRUE; }
 "フォルス"    { return FALSE; }
 "ナン"        { return NONE; }
-"プリント"     {return PRINT; }
+"プリント"     { return PRINT; }
 [0-9]+        { yylval.num = atoi(yytext); return NUMBER; }
 [a-zA-Z_][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return IDENTIFIER; }
 "=="          { return EQUALITY; }
-"+"         { return PLUS; }   // Addition operator
-"-"         { return MINUS; }  // Subtraction operator
-"*"         { return MULTIPLY; } // Multiplication operator
+"+"           { return PLUS; }   // Addition operator
+"-"           { return MINUS; }  // Subtraction operator
+"*"           { return MULTIPLY; } // Multiplication operator
 "/"           { return DIVIDE; } // Division operator
 ";"           { return SEMICOLON; } // Separator operator
 "("           { return LPAREN; }
@@ -50,3 +50,4 @@
 .             { fprintf(stderr, "Unexpected character: %s\n", yytext); }
 
 %%
+

@@ -601,7 +601,7 @@ char *yytext;
 #line 2 "lexer.l"
 #include <stdio.h>
 #include <stdlib.h>
-#include "parser.tab.h"
+#include "parser.tab.c"
 #line 606 "lex.yy.c"
 #line 607 "lex.yy.c"
 
@@ -1022,7 +1022,7 @@ YY_RULE_SETUP
 case 29:
 YY_RULE_SETUP
 #line 38 "lexer.l"
-{return PRINT; }
+{ return PRINT; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
@@ -2096,5 +2096,6 @@ void yyfree (void * ptr )
 #define YYTABLES_NAME "yytables"
 
 #line 52 "lexer.l"
+
 
 
